@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Employee {
 	private int empId;
 	private String empName;

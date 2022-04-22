@@ -7,8 +7,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Book {
 		private int bookId;
 		private String bookType;
