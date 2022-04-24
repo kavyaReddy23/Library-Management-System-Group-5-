@@ -1,9 +1,13 @@
 package lib.management.presentation;
-
-import java.util.Scanner;
+import lib.management.entity.*;
+import lib.management.service.LibraryService;
+import lib.management.service.LibraryServiceImpl;
+import java.util.List;
+import java.util.*;
 
 public class LibraryManagementPresentationImpl implements LibraryManagementPresentation {
 	Scanner scanner=new Scanner(System.in);
+	private LibraryService libraryService=new LibraryServiceImpl();
 	@Override
 	public void login() {
 		System.out.println("1. Login as Employee");
@@ -29,11 +33,15 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 
 	@Override
 	public void performChoiceByEmployeeID(int choice) {
-	
+	Scanner scanner=new Scanner(System.in);
 		int empId=0;
 		switch (choice) {
 		case 1:
-			System.out.println("Select from available types");//fetch all the types of books from database and show
+			System.out.println("enter type of the book to search");
+			String bookType=scanner.next();
+			List<Book> bookList=libraryService.searchByType(bookType);
+			System.out.println("List of Books");
+			bookList.stream().forEach(System.out::println);
 			break;
 
 	}
