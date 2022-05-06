@@ -19,7 +19,7 @@ public class BookDaoImpl implements BookDao {
 		Book book = new Book();
 		Statement statement = null;
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/librarymanagement", "root",
-				"wiley");) {
+				"Root");) {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			statement = connection.createStatement();
             String booktype=Type;

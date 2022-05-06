@@ -26,4 +26,20 @@ insert into Employee values
 (4,"Kavya Reddy",0,"7894561230",0),
 (5,"Yash Vardhan Verma",0,"9874561230",0);
 
+--create table transaction
+create table transaction (transactionId int primary key auto_increment,bookId int  not null,
+empId int  not null,issueDate Date not null,expectedReturnDate Date not null,
+actualReturnDate Date,isReturned boolean,foreign key(bookId) references books(bookId),
+foreign key(bookId) references books(bookId),foreign key(empId) references employee(empId));
+
+--alter table books issued to boolean
+ alter table books 
+ Modify column issued boolean default false;
+ 
+--update table books
+UPDATE `librarymanagement`.`books` SET `issued` = 'false' WHERE (`bookId` = '1');
+UPDATE `librarymanagement`.`books` SET `issued` = 'false' WHERE (`bookId` = '2');
+UPDATE `librarymanagement`.`books` SET `issued` = 'false' WHERE (`bookId` = '3');
+UPDATE `librarymanagement`.`books` SET `issued` = 'false' WHERE (`bookId` = '4');
+
 
