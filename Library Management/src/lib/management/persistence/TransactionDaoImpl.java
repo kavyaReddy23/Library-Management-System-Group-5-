@@ -43,7 +43,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		}
 
 	}
-	
+	@Override
 	public ArrayList<TransactionEntity> getIssuedBooksForEmployee(int empid){
 		Statement statement = null;
 		ArrayList<TransactionEntity>transactionList=new ArrayList<TransactionEntity>();
@@ -74,10 +74,11 @@ public class TransactionDaoImpl implements TransactionDao {
 	@Override
 	public void returnBook(int empid, int bookId) {
 		Statement statement = null;
-
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		Date actualReturnDate = new Date();
 		try {
 			statement = connection.createStatement();
-			String updatingTransactionTable = "update transaction set isReturned = True where empId="+empid+" and bookId="+bookId;
+			String updatingTransactionTable = "update transaction set isReturned = True,issueDate = "+formatter.format(actualReturnDate)+" where empId="+empid+" and bookId="+bookId;
 			statement.executeUpdate(updatingTransactionTable);
 		} catch (SQLException e) {
 
