@@ -3,15 +3,55 @@ package lib.management.service;
 
 import java.util.List;
 import lib.management.entity.Book;
+import lib.management.entity.Employee;
 import lib.management.persistence.BookDao;
 import lib.management.persistence.BookDaoImpl;
+import lib.management.persistence.EmployeeDao;
+import lib.management.persistence.EmployeeDaoImpl;
+import lib.management.persistence.TransactionDao;
+import lib.management.persistence.TransactionDaoImpl;
 
 public class LibraryServiceImpl implements LibraryService {
 	private BookDao bookDao=new BookDaoImpl();
+	private EmployeeDao employeeDao=new EmployeeDaoImpl();
+	private TransactionDao transactionDao=new TransactionDaoImpl();  
 	@Override
 	public List<Book> searchByType(String type) {
-	
 		return bookDao.getBookByType(type);
+	}
+	@Override
+	public List<Book> searchByKeyword(String keyword) {
+		return bookDao.getBookByKeyword(keyword);
+	}
+	@Override
+	public List<Book> searchByName(String name) {
+		return bookDao.getBookByName(name);
+	}
+	@Override
+	public List<Book> searchByAuthorName(String authorName) {
+		return bookDao.getBookByAuthorName(authorName);
+	}
+	@Override
+	public boolean canIssue(String empId) {
+		Employee emp=new Employee();
+		if((int)paymentpending(empId)>0)return false;
+		if(emp.getNoOfBooksIssued()>=3)return false;
+		return true;
+	}
+	@Override
+	public double paymentpending(String empId) {
+		
+		return 0;
+	}
+	@Override
+	public boolean issue(String empId, String bookId) {
+		bookDao.issueBook(empId, bookId);
+		return false;
+	}
+	@Override
+	public boolean returnBook(String empId, String bookId) {
+		bookDao.returnBook(empId, bookId);
+		return false;
 	}
 	
 	

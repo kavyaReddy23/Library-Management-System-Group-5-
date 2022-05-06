@@ -118,7 +118,7 @@ public class BookDaoImpl implements BookDao {
 	}
 
 
-	//return book 1.set book is available in book table for that book id
+	//return book 1. set book is available in book table for that book id
 	//			  2. decrement book count in employee table for that employee
 			
 	@Override
