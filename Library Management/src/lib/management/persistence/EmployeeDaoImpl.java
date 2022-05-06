@@ -1,8 +1,11 @@
 package lib.management.persistence;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import lib.management.entity.Employee;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 	private Connection connection;
@@ -41,6 +44,31 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public Employee getEmployeeDetails(int empid) {
+		Statement statement = null;
+		Employee emp=null;
+		try {
+			ResultSet resultSet = statement.executeQuery("Select * from employee where empId="+empid);
+			
+			while(resultSet.next()) {
+				int empId=resultSet.getInt("empId");
+				String empName=resultSet.getString("empName");
+				double paymentPending=resultSet.getDouble("paymentPending");
+				String phoneNumber=resultSet.getString("phoneNumber");
+				int noOfBooksIssued=resultSet.getInt("noOfBooksIssued");
+				emp=new Employee(empId,empName,paymentPending,phoneNumber,noOfBooksIssued);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return emp;
+		
 	}
 
 }

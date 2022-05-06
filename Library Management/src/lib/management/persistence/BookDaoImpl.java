@@ -143,4 +143,28 @@ public class BookDaoImpl implements BookDao {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Book getBookById(int bookid) {
+		Book book=null;
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			ResultSet resultSet= statement.executeQuery("select * from books where bookId="+bookid);
+			while(resultSet.next())
+			{
+				int bookId=resultSet.getInt("bookId");
+				String bookType=resultSet.getString("bookType");
+				String bookName=resultSet.getString("bookName");
+				String authorName=resultSet.getString("authorName");
+				boolean issued=resultSet.getBoolean("issued");
+				double lateFeePrice=resultSet.getDouble("lateFeesPrice");
+				book=new Book(bookId,bookType,bookName,authorName,issued,lateFeePrice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return book;
+	}
 }
