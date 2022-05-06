@@ -32,7 +32,7 @@ public class BookDaoImpl implements BookDao {
 				statement = connection.createStatement();
 				String booktype=Type;
 				ResultSet resultSet = statement.executeQuery(
-							"SELECT bookId,bookName,authorName,bookType FROM Books where bookType='"+booktype+"' and issued=0 group by bookName");
+							"SELECT bookId,bookName,authorName,bookType FROM Books where bookType='"+booktype+"' and issued=false group by bookName");
 				while (resultSet.next()) {
 					int id = resultSet.getInt("bookId");
 					String typeOfBook = resultSet.getString("bookType");
@@ -62,20 +62,50 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> getBookByKeyword(String bookType) {
-		
-		return null;
+		List<Book> bookList = new ArrayList<Book>();
+		Book book = new Book();
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			String key = bookType;
+			ResultSet resultSet = statement.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where bookName like '%"+key+"%' and issued=false group by bookName");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookList;
 	}
 
 	@Override
 	public List<Book> getBookByName(String bookType) {
-		
-		return null;
+		List<Book> bookList = new ArrayList<Book>();
+		Book book = new Book();
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			String bookName = bookType;
+			ResultSet resultSet = statement.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where bookName='"+bookName+"' and issued=false group by bookName");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookList;
 	}
 
 	@Override
 	public List<Book> getBookByAuthorName(String bookType) {
-		
-		return null;
+		List<Book> bookList = new ArrayList<Book>();
+		Book book = new Book();
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			String authorName = bookType;
+			ResultSet resultSet = statement.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where authorName='"+authorName+"' and issued=false group by bookName");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookList;
 	}	
 	
 	//issue book
