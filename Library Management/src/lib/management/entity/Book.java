@@ -10,6 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Data
 public class Book {
+		public Book(int id, String typeOfBook, String bookName, String authorName) {
+			
+		this.bookId=id;
+		this.bookType=typeOfBook;
+		this.bookName=bookName;
+		this.authorName=authorName;
+	}
 		private int bookId;
 		private String bookType;
 		private String bookName;
