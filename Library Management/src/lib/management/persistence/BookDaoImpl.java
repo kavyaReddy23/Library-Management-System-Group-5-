@@ -30,7 +30,7 @@ public class BookDaoImpl implements BookDao {
 		Statement statement = null;
 			try {
 				statement = connection.createStatement();
-				 String booktype=Type;
+				String booktype=Type;
 				ResultSet resultSet = statement.executeQuery(
 							"SELECT bookId,bookName,authorName,bookType FROM Books where bookType='"+booktype+"' and issued=0 group by bookName");
 				while (resultSet.next()) {
@@ -46,25 +46,19 @@ public class BookDaoImpl implements BookDao {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-
-		//get book by name/keyword
-				
-		
-		
-		
-		
-		//Librarian
-		//set employee pending payment zero 
-		//add new employee
-		//delete transaction record for which books have been returned
-		
-		
-		// transactionId(int) bookId(int) empId(int) issueDate(date) expectedReturnDate(date) actualReturnDate(date) isReturned(boolean)
-		
-		
-		return bookList;
+			return bookList;
 	}
+			
+			
+			
+			//Librarian
+			//set employee pending payment zero 
+			//add new employee
+			//delete transaction record for which books have been returned
+			
+			
+			// transactionId(int) bookId(int) empId(int) issueDate(date) expectedReturnDate(date) actualReturnDate(date) isReturned(boolean)
+			
 
 	@Override
 	public List<Book> getBookByKeyword(String bookType) {
