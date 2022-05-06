@@ -32,25 +32,25 @@ public class LibraryServiceImpl implements LibraryService {
 		return bookDao.getBookByAuthorName(authorName);
 	}
 	@Override
-	public boolean canIssue(String empId) {
+	public boolean canIssue(int empId) {
 		Employee emp=new Employee();
 		if((int)paymentpending(empId)>0)return false;
 		if(emp.getNoOfBooksIssued()>=3)return false;
 		return true;
 	}
 	@Override
-	public double paymentpending(String empId) {
+	public double paymentpending(int empId) {
 		
 		return 0;
 	}
 	@Override
-	public boolean issue(String empId, String bookId) {
-		bookDao.issueBook(empId, bookId);
+	public boolean issue(int empId, int bookId) {
+		bookDao.issueBook(bookId);
 		return false;
 	}
 	@Override
-	public boolean returnBook(String empId, String bookId) {
-		bookDao.returnBook(empId, bookId);
+	public boolean returnBook(int empId, int bookId) {
+		bookDao.returnBook(bookId);
 		return false;
 	}
 	
