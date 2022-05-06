@@ -38,7 +38,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 		switch (choice) {
 		case 1:
 			System.out.println("enter type of the book to search");
-			String bookType=scanner.next();
+			String bookType=scanner.nextLine();
 			List<Book> bookList=libraryService.searchByType(bookType);
 			System.out.println("List of Books");
 			bookList.stream().forEach(System.out::println);
