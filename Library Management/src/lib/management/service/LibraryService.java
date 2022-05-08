@@ -10,5 +10,6 @@ public interface LibraryService {
  double paymentpending(int empId);
  boolean issue(int empId,int bookId);
  boolean returnBook(int empId,int bookId);
- 
+
+ int getTotalBooksIssued(int empId);
 }

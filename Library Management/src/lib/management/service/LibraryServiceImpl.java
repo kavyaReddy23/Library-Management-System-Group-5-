@@ -45,6 +45,13 @@ public class LibraryServiceImpl implements LibraryService {
 		if(emp.getNoOfBooksIssued()>=3)return false;
 		return true;
 	}
+	public int getTotalBooksIssued(int empId)
+	{
+		Employee emp=employeeDao.getEmployeeDetails( empId);
+		
+		return emp.getNoOfBooksIssued();
+				
+	}
 	@Override
 	public double paymentpending(int empId) {
 		ArrayList<TransactionEntity>transactions=transactionDao.getIssuedBooksForEmployee(empId);
@@ -76,6 +83,13 @@ public class LibraryServiceImpl implements LibraryService {
 		bookDao.returnBook(bookId);
 		return false;
 	}
+	
+	
+	
+	
+	// 1 add emmployee
+	// 2 set payment 0 for employee
+	// 3 delete the records in the transaction table for which isReturned is true.
 	
 	
 	

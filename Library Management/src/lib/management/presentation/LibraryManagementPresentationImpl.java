@@ -26,6 +26,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 	}
 
 	public void showMenuForEmployee() {
+		//  System.out.println("Press 1: Search book details:");
 	    System.out.println("Press 1: Search Employee Details:");
 	    System.out.println("Press 2: Search Book By Type:");
 	    System.out.println("Press 3: Search Book By Name:");
@@ -46,9 +47,13 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 		int bookId=0;
 		switch (choice) {
 		case 1:
-			System.out.println("Employee Details");
-		 empId=scanner.nextInt();
-		//	List<Employee> employeeList=libraryService.
+//		System.out.println("Book Details");
+//		bookId=scanner.nextInt();
+//	    List<Book> list=libraryService.
+		//	System.out.println("Enter Employee Details");
+		//	List<Book> list=libararyService.
+		// empId=scanner.nextInt();
+			//List<Employee> employeeList=libraryService.
 		//	employeeList.stream().forEach(System.out::println);
 			
 			break;
@@ -63,7 +68,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 			System.out.println("Enter Name of the book to search");
 			String bookName=scanner.nextLine();
 			List<Book> bookNameList=libraryService.searchByName(bookName);
-			System.out.println("List of Books");
+		//	System.out.println("List of Books");
 			bookNameList.stream().forEach(System.out::println);
 			break;
 		case 4:
@@ -77,7 +82,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 			System.out.println("Enter Author Name of the book to search");
 			String bookAuthorName=scanner.nextLine();
 			List<Book> bookAuthorNameList=libraryService.searchByAuthorName(bookAuthorName);
-			System.out.println("List of Books");
+			//System.out.println("List of Books");
 			bookAuthorNameList.stream().forEach(System.out::println);
 			break;
 		case 6:
@@ -88,9 +93,25 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 			break;
 		case 7:
 			System.out.println("Issuing Book");
-			 bookId=scanner.nextInt();
-			// List<Book> issueBookList=libraryService.searchByAuthorName(bookAuthorName);
-		//	 issueBookList.stream().forEach(System.out::println);
+			System.out.println("Enter EmployeeId:");
+			 empId=scanner.nextInt();
+			 System.out.println("Enter BookId:");
+			bookId=scanner.nextInt();
+			 if(libraryService.canIssue(empId))
+			 {
+				 libraryService.issue(empId, bookId);
+				 System.out.println("Employee issuing the book");
+			 }
+			 else 
+			 {
+				 if(libraryService.paymentpending(empId)>0)
+				 System.out.println("Employee need to Pay remaining amount");
+				 else 
+					 System.out.println("Employe issued with more than three books");
+					
+				 
+			 }
+		
 			break;
 		case 8:
 			System.out.println("Returning Book");

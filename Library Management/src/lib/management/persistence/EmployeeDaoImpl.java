@@ -51,6 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Statement statement = null;
 		Employee emp=null;
 		try {
+			statement=connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("Select * from employee where empId="+empid);
 			
 			while(resultSet.next()) {
@@ -58,7 +59,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				String empName=resultSet.getString("empName");
 				double paymentPending=resultSet.getDouble("paymentPending");
 				String phoneNumber=resultSet.getString("phoneNumber");
-				int noOfBooksIssued=resultSet.getInt("noOfBooksIssued");
+				int noOfBooksIssued=resultSet.getInt("noOfBooks");
 				emp=new Employee(empId,empName,paymentPending,phoneNumber,noOfBooksIssued);
 			}
 			

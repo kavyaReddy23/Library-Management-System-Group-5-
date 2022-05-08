@@ -64,8 +64,18 @@ public class BookDaoImpl implements BookDao {
 			statement = connection.createStatement();
 			String key = bookType;
 			ResultSet resultSet = statement
-					.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where bookName like '%" + key
-							+ "%' and issued=false group by bookName");
+					.executeQuery("SELECT bookId,bookName,authorName,issued,lateFeePrice,bookType FROM Books where bookName like '%" + key
+							+ "%' and issued=false");
+			while(resultSet.next())
+			{
+				int bookId=resultSet.getInt("bookId");
+				 bookType=resultSet.getString("bookType");
+				 String bookKeyword=resultSet.getString("bookName");
+				String authorName=resultSet.getString("authorName");
+				boolean issued=resultSet.getBoolean("issued");
+				double lateFeePrice=resultSet.getDouble("lateFeePrice");
+				book=new Book(bookId,bookType,bookKeyword,authorName,issued,lateFeePrice);
+				bookList.add(book);}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,12 +92,24 @@ public class BookDaoImpl implements BookDao {
 			statement = connection.createStatement();
 			String bookName = bookType;
 			ResultSet resultSet = statement
-					.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where bookName='" + bookName
-							+ "' and issued=false group by bookName");
+					.executeQuery("SELECT distinct bookId,bookName,authorName,issued,lateFeePrice,bookType FROM Books where bookName='" + bookName
+							+ "' and issued=false");
+			while(resultSet.next())
+			{
+				int bookId=resultSet.getInt("bookId");
+				 bookType=resultSet.getString("bookType");
+				 bookName=resultSet.getString("bookName");
+				String authorName=resultSet.getString("authorName");
+				boolean issued=resultSet.getBoolean("issued");
+				double lateFeePrice=resultSet.getDouble("lateFeePrice");
+				book=new Book(bookId,bookType,bookName,authorName,issued,lateFeePrice);
+				bookList.add(book);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(bookList.size());
 		return bookList;
 	}
 
@@ -100,9 +122,19 @@ public class BookDaoImpl implements BookDao {
 			statement = connection.createStatement();
 			String authorName = bookType;
 			ResultSet resultSet = statement
-					.executeQuery("SELECT bookId,bookName,authorName,bookType FROM Books where authorName='"
+					.executeQuery("SELECT  bookId,bookName,authorName,issued,lateFeePrice,bookType FROM Books where authorName='"
 							+ authorName + "' and issued=false group by bookName");
-		} catch (SQLException e) {
+			while(resultSet.next())
+			{
+				int bookId=resultSet.getInt("bookId");
+				 bookType=resultSet.getString("bookType");
+				 String bookAuthorName=resultSet.getString("bookName");
+				 authorName=resultSet.getString("authorName");
+				boolean issued=resultSet.getBoolean("issued");
+				double lateFeePrice=resultSet.getDouble("lateFeePrice");
+				book=new Book(bookId,bookType,bookAuthorName,authorName,issued,lateFeePrice);
+				bookList.add(book);
+		}} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -115,8 +147,13 @@ public class BookDaoImpl implements BookDao {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
-			String updatingBookAvailableStatus = "update books set issued = true where bookId =" + bookId;
-			statement.executeUpdate(updatingBookAvailableStatus);
+			//String updatingBookAvailableStatus = "update books set issued = true where bookId =" + bookId;
+			int rows=statement.executeUpdate( "update books set issued = true where bookId =" + bookId);
+			if(rows>0)
+				
+			{
+				System.out.println("books updated successfully");
+			}
 
 		} catch (SQLException e) {
 

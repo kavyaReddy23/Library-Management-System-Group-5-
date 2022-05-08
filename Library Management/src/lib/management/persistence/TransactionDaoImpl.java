@@ -49,7 +49,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		ArrayList<TransactionEntity>transactionList=new ArrayList<TransactionEntity>();
 		try {
 			statement = connection.createStatement();
-			ResultSet resultSet=  statement.executeQuery("select * from transaction where empId="+empid+"and isReturned = false");
+			ResultSet resultSet=  statement.executeQuery("select * from transaction where empId="+empid+" and isReturned = false;");
 			while (resultSet.next()) {
 				int transactionId=resultSet.getInt("transactionId");
 				int bookId=resultSet.getInt("bookId");
