@@ -2,7 +2,7 @@ package lib.management.presentation;
 
 public interface LibraryManagementPresentation {
 	
-	void login();
+	void start();
 	void showMenuforLibrarian();
 	void showMenuForEmployee();
 	void performChoiceByEmployeeID(int choice);

@@ -25,18 +25,21 @@ public class TransactionDaoImpl implements TransactionDao {
 
 	@Override
 	public void issueBook(int empId, int bookId) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		Date issueDate = new Date();
+		java.sql.Date issueDateSQL=new java.sql.Date(issueDate.getTime());
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_YEAR, 7);
 		Date expectedReturnDate = calendar.getTime();
+		java.sql.Date expectedReturnDateSQL=new java.sql.Date(expectedReturnDate.getTime());
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
 			String insertInTransaction = "insert into transaction (bookId,empId,issueDate,expectedReturnDate,actualReturnDate,isReturned) values("
-					+ bookId + "," + empId + "," + formatter.format(issueDate) + ","
-					+ formatter.format(expectedReturnDate) + "," + "null" + "," + "false)";
-			statement.executeUpdate(insertInTransaction);
+					+ bookId + "," + empId + ", '" + issueDateSQL + "' , '"
+					+ expectedReturnDateSQL + "' ," + "null" + "," + "false)";
+			
+			
+		statement.executeUpdate(insertInTransaction);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -74,11 +77,11 @@ public class TransactionDaoImpl implements TransactionDao {
 	@Override
 	public void returnBook(int empid, int bookId) {
 		Statement statement = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		Date actualReturnDate = new Date();
+		java.sql.Date actualReturnDateSQL=new java.sql.Date(actualReturnDate.getTime());
 		try {
 			statement = connection.createStatement();
-			String updatingTransactionTable = "update transaction set isReturned = True,issueDate = "+formatter.format(actualReturnDate)+" where empId="+empid+" and bookId="+bookId;
+			String updatingTransactionTable = "update transaction set isReturned = True, actualReturnDate = '"+actualReturnDateSQL+"' where empId="+empid+" and bookId="+bookId;
 			statement.executeUpdate(updatingTransactionTable);
 		} catch (SQLException e) {
 

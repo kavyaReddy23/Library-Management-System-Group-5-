@@ -65,7 +65,7 @@ public class BookDaoImpl implements BookDao {
 			String key = bookType;
 			ResultSet resultSet = statement
 					.executeQuery("SELECT bookId,bookName,authorName,issued,lateFeePrice,bookType FROM Books where bookName like '%" + key
-							+ "%' and issued=false");
+							+ "%' and issued=false group by bookName");
 			while(resultSet.next())
 			{
 				int bookId=resultSet.getInt("bookId");
@@ -149,11 +149,6 @@ public class BookDaoImpl implements BookDao {
 			statement = connection.createStatement();
 			//String updatingBookAvailableStatus = "update books set issued = true where bookId =" + bookId;
 			int rows=statement.executeUpdate( "update books set issued = true where bookId =" + bookId);
-			if(rows>0)
-				
-			{
-				System.out.println("books updated successfully");
-			}
 
 		} catch (SQLException e) {
 
@@ -195,7 +190,7 @@ public class BookDaoImpl implements BookDao {
 				String bookName=resultSet.getString("bookName");
 				String authorName=resultSet.getString("authorName");
 				boolean issued=resultSet.getBoolean("issued");
-				double lateFeePrice=resultSet.getDouble("lateFeesPrice");
+				double lateFeePrice=resultSet.getDouble("lateFeePrice");
 				book=new Book(bookId,bookType,bookName,authorName,issued,lateFeePrice);
 			}
 		} catch (SQLException e) {

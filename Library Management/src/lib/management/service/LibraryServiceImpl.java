@@ -39,10 +39,11 @@ public class LibraryServiceImpl implements LibraryService {
 		return bookDao.getBookByAuthorName(authorName);
 	}
 	@Override
-	public boolean canIssue(int empId) {
+	public boolean canIssue(int empId,int bookId) {
 		Employee emp=employeeDao.getEmployeeDetails(empId);
 		if((int)paymentpending(empId)>0)return false;
 		if(emp.getNoOfBooksIssued()>=3)return false;
+		if(bookDao.getBookById(bookId).isIssued())return false;
 		return true;
 	}
 	public int getTotalBooksIssued(int empId)
@@ -75,13 +76,27 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	@Override
 	public boolean issue(int empId, int bookId) {
+		employeeDao.issueBook(empId);
 		bookDao.issueBook(bookId);
-		return false;
+		transactionDao.issueBook(empId, bookId);
+		return true;
 	}
 	@Override
 	public boolean returnBook(int empId, int bookId) {
+		employeeDao.returnBook(empId);
 		bookDao.returnBook(bookId);
+		transactionDao.returnBook(empId, bookId);
 		return false;
+	}
+	public ArrayList<Book>getBooksOfEmployee(int empId) {
+		ArrayList<TransactionEntity>transactionEntities=transactionDao.getIssuedBooksForEmployee(empId);
+		ArrayList<Book>empBooks=new ArrayList<Book>();
+		for(TransactionEntity t: transactionEntities)
+		{
+			Book book=bookDao.getBookById(t.getBookId());
+			empBooks.add(book);
+		}
+		return empBooks;
 	}
 	
 	

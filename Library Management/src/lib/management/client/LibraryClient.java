@@ -9,9 +9,7 @@ public class LibraryClient {
 
 		Scanner scanner = new Scanner(System.in);
 		LibraryManagementPresentation libraryManagementPresentation = new LibraryManagementPresentationImpl();
-		while (true) {
-			libraryManagementPresentation.login();
-		}
+			libraryManagementPresentation.start();
 	}
 
 }

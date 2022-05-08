@@ -36,7 +36,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Statement statement = null;
 
 		try {
-
+			statement=connection.createStatement();
 			String updatingEmployee = "update employee set noOfBooks = noOfBooks-1  where empId =" + empId;
 			statement.executeUpdate(updatingEmployee);
 		} catch (SQLException e) {
