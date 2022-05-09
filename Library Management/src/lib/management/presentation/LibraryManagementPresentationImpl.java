@@ -43,7 +43,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 	    System.out.println("Press 6: Issue Book:");
 	    System.out.println("Press 7: Return Book:");
 	    System.out.println("Press 0: To logout");
-	    System.out.println("Press E: To exit");
+	    System.out.println("Press -1: To exit");
 	    
 	    
 		int choice =scanner.nextInt();
@@ -55,7 +55,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 		int bookId=0;
 		Scanner sc=new Scanner(System.in);
 		switch (choice) {
-		case 'E':
+		case -1:
 			System.exit(0);
 		case 0:
 			this.runEmp=false;

@@ -41,7 +41,7 @@ public class LibraryServiceImpl implements LibraryService {
 	@Override
 	public boolean canIssue(int empId,int bookId) {
 		Employee emp=employeeDao.getEmployeeDetails(empId);
-		if((int)paymentpending(empId)>0)return false;
+		if(paymentpending(empId)>0.0)return false;
 		if(emp.getNoOfBooksIssued()>=3)return false;
 		if(bookDao.getBookById(bookId).isIssued())return false;
 		return true;
@@ -49,7 +49,6 @@ public class LibraryServiceImpl implements LibraryService {
 	public int getTotalBooksIssued(int empId)
 	{
 		Employee emp=employeeDao.getEmployeeDetails( empId);
-		
 		return emp.getNoOfBooksIssued();
 				
 	}
