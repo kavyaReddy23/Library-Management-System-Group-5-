@@ -53,7 +53,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			statement=connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("Select * from employee where empId="+empid);
-			
 			while(resultSet.next()) {
 				int empId=resultSet.getInt("empId");
 				String empName=resultSet.getString("empName");

@@ -87,16 +87,27 @@ public class LibraryServiceImpl implements LibraryService {
 		transactionDao.returnBook(empId, bookId);
 		return false;
 	}
-	public ArrayList<Book>getBooksOfEmployee(int empId) {
-		ArrayList<TransactionEntity>transactionEntities=transactionDao.getIssuedBooksForEmployee(empId);
-		ArrayList<Book>empBooks=new ArrayList<Book>();
-		for(TransactionEntity t: transactionEntities)
-		{
-			Book book=bookDao.getBookById(t.getBookId());
-			empBooks.add(book);
-		}
-		return empBooks;
+	
+	public Book getBookById(int id) {
+		
+		return bookDao.getBookById(id);
+		
 	}
+	public ArrayList<TransactionEntity>getTransactionsOfEmployee(int empId) {
+		return transactionDao.getIssuedBooksForEmployee(empId);
+	}
+	@Override
+	public ArrayList<Book> getBooksOfEmployee(int empId) {
+		ArrayList<TransactionEntity>transactions=new ArrayList<TransactionEntity>();
+		ArrayList<Book>books=new ArrayList<Book>();
+		for(TransactionEntity t: transactions)
+		{
+			books.add(bookDao.getBookById(t.getBookId()));
+		}
+		return books;
+	}
+	
+	
 	
 	
 	

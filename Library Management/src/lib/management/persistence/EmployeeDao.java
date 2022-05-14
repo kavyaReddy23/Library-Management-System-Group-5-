@@ -1,5 +1,7 @@
 package lib.management.persistence;
 
+import java.util.Optional;
+
 import lib.management.entity.Employee;
 
 public interface EmployeeDao {

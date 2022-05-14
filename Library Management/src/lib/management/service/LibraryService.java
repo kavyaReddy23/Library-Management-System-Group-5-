@@ -10,6 +10,8 @@ public interface LibraryService {
  double paymentpending(int empId);
  boolean issue(int empId,int bookId);
  boolean returnBook(int empId,int bookId);
+ Book getBookById(int id);
+ ArrayList<TransactionEntity>getTransactionsOfEmployee(int empId);
  ArrayList<Book>getBooksOfEmployee(int empId);
  int getTotalBooksIssued(int empId);
 }
