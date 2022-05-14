@@ -14,7 +14,7 @@ public class DataConnection {
 	        {
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/librarymanagement", "root",
-						"wiley");
+						"Root");
 	        }
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();

@@ -29,7 +29,9 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 
 	public void showMenuforLibrarian() {
 	System.out.println("Press 1:Add New Employee");
+	System.out.println("Press 2:Make Payment Zero of an Employee by Id");
 	int choice1=scanner.nextInt();
+	performChoicebyLibrarian(choice1);
 		
 	}
 
@@ -169,7 +171,22 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 		switch(choice1) {
 		case 1:
 			System.out.println("Enter new Employee Details:");
+			System.out.println("Enter Employee Id");
+			int empId = scanner.nextInt();
+			System.out.println("Enter Employee Name");
+			String name = scanner.nextLine();
+			System.out.println("Enter Employee Phone Number");
+			String phoneNumber = scanner.nextLine();
+			libraryService.addEmployee(empId, name, phoneNumber);
+			System.out.println("Employee Added Successfully");
 			break;
+		case 2:
+			System.out.println("Enter Employee id to amek paymnet 0");
+			int id = scanner.nextInt();
+			libraryService.makePaymentPendingZero(id);
+			System.out.println("Payment made zero");
+		case -1:
+			System.exit(0);
 		}
 		
 	}

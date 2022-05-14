@@ -12,4 +12,6 @@ public interface LibraryService {
  boolean returnBook(int empId,int bookId);
  ArrayList<Book>getBooksOfEmployee(int empId);
  int getTotalBooksIssued(int empId);
+ boolean makePaymentPendingZero(int empId);
+ void addEmployee(int empId,String empName,String phoneNumber);
 }
