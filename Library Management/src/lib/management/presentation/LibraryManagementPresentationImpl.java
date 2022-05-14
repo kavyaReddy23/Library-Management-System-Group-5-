@@ -127,6 +127,21 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 		case 7:
 			System.out.println("Enter book Id");
 			 bookId=sc.nextInt();
+			 List<Book>books=libraryService.getBooksOfEmployee(bookId);
+			 boolean isIssued=false;
+			 for(Book b:books)
+			 {
+				 if((b.getBookId()==bookId))
+				 {
+					 isIssued=true;
+					 break;
+				 }
+			 }
+			 if(!isIssued)
+			 {
+				 System.out.println("Book not issued by you");
+				 break;
+			 }
 			 double payment=libraryService.paymentpending(empId);
 			 if(payment>0)
 			 System.out.println("Employee need to Pay "+payment);
@@ -145,6 +160,9 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 	}
 
 }
+	public void printBook(Book book) {
+		
+	}//
 
 	@Override
 	public void performChoicebyLibrarian(int choice1) {
