@@ -14,4 +14,6 @@ public interface LibraryService {
  ArrayList<TransactionEntity>getTransactionsOfEmployee(int empId);
  ArrayList<Book>getBooksOfEmployee(int empId);
  int getTotalBooksIssued(int empId);
+ boolean makePaymentPendingZero(int empId);
+ void addEmployee(int empId,String empName,String phoneNumber);
 }

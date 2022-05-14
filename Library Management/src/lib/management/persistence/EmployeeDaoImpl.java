@@ -53,6 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			statement=connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("Select * from employee where empId="+empid);
+
 			while(resultSet.next()) {
 				int empId=resultSet.getInt("empId");
 				String empName=resultSet.getString("empName");
@@ -68,6 +69,36 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			e.printStackTrace();
 		}
 		return emp;
+		
+	}
+
+	@Override
+	public void addEmployee(int empId, String empName, String phoneNumber) {
+		Statement statement = null;
+		try {
+			statement = connection.createStatement();
+			String query = "insert into employee values("+empId+",'"+empName+"',"+0+",'"+phoneNumber+"',"+0+")";
+			statement.execute(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
+	@Override
+	public void makePaymentZero(int empId) {
+		Statement statement = null;
+		
+		try {
+			statement = connection.createStatement();
+			String query = "update employee set paymentPending = 0 where empId="+empId;
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
 		
 	}
 

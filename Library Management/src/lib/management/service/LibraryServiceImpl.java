@@ -107,8 +107,20 @@ public class LibraryServiceImpl implements LibraryService {
 		return books;
 	}
 	
-	
-	
+	@Override
+	public boolean makePaymentPendingZero(int empId) {
+		if(employeeDao.getEmployeeDetails(empId)==null) {
+			return false;
+		}else {
+			employeeDao.makePaymentZero(empId);
+			return true;
+		}
+	}
+	@Override
+	public void addEmployee(int empId, String empName, String phoneNumber) {
+		employeeDao.addEmployee(empId, empName, empName);
+		
+	}
 	
 	
 	
