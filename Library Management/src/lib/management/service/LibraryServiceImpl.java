@@ -56,7 +56,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public double paymentpending(int empId) {
 		ArrayList<TransactionEntity>transactions=transactionDao.getIssuedBooksForEmployee(empId);
 		double payment=0;
+		Employee emp=employeeDao.getEmployeeDetails(empId);
 		if(transactions.size()==0)return 0;
+		else if(emp.getPaymentPending()>0)return emp.getPaymentPending();
 		else
 		{
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
@@ -118,7 +120,7 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	@Override
 	public void addEmployee(int empId, String empName, String phoneNumber) {
-		employeeDao.addEmployee(empId, empName, empName);
+		employeeDao.addEmployee(empId, empName, phoneNumber);
 		
 	}
 	

@@ -78,7 +78,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			statement = connection.createStatement();
 			String query = "insert into employee values("+empId+",'"+empName+"',"+0+",'"+phoneNumber+"',"+0+")";
-			statement.execute(query);
+			System.out.println("insert into employee values("+empId+",'"+empName+"',"+0+",'"+phoneNumber+"',"+0+")");
+			statement.executeUpdate(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,6 +96,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			statement = connection.createStatement();
 			String query = "update employee set paymentPending = 0 where empId="+empId;
+			statement.executeUpdate(query);
 		} catch (SQLException e) {
 		
 			e.printStackTrace();

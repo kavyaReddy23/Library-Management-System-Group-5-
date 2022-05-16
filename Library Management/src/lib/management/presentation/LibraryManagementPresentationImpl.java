@@ -178,6 +178,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 
 	@Override
 	public void performChoicebyLibrarian(int choice1) {
+		
 		switch (choice1) {
 		case -1:
 			System.exit(0);
@@ -188,8 +189,10 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 			System.out.println("Enter new Employee Details:");
 			System.out.println("Enter Employee Id");
 			int empId = scanner.nextInt();
+			scanner.nextLine();
 			System.out.println("Enter Employee Name");
 			String name = scanner.nextLine();
+			//scanner.nextLine();
 			System.out.println("Enter Employee Phone Number");
 			String phoneNumber = scanner.nextLine();
 			libraryService.addEmployee(empId, name, phoneNumber);
