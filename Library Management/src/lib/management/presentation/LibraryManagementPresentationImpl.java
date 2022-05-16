@@ -11,6 +11,7 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 	private LibraryService libraryService = new LibraryServiceImpl();
 	private int empId;
 	private boolean runEmp;
+	private boolean runLib;
 
 	@Override
 	public void start() {
@@ -25,14 +26,17 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 				while (runEmp)
 					showMenuForEmployee();
 			} else
-				while (true)
+				this.runLib=true;
+				while (runLib)
 					showMenuforLibrarian();
 		}
 	}
 
 	public void showMenuforLibrarian() {
-	System.out.println("Press 1:Add New Employee");
-	System.out.println("Press 2:Make Payment Zero of an Employee by Id");
+	System.out.println("Press 1: Add New Employee");
+	System.out.println("Press 2: Make Payment Zero of an Employee by Id");
+	System.out.println("Press 0: To logout");
+	System.out.println("Press -1: To exit");
 	int choice1=scanner.nextInt();
 	performChoicebyLibrarian(choice1);
 
@@ -175,6 +179,11 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 	@Override
 	public void performChoicebyLibrarian(int choice1) {
 		switch (choice1) {
+		case -1:
+			System.exit(0);
+		case 0:
+			this.runLib = false;
+			break;
 		case 1:
 			System.out.println("Enter new Employee Details:");
 			System.out.println("Enter Employee Id");
@@ -191,8 +200,6 @@ public class LibraryManagementPresentationImpl implements LibraryManagementPrese
 			int id = scanner.nextInt();
 			libraryService.makePaymentPendingZero(id);
 			System.out.println("Payment made zero");
-		case -1:
-			System.exit(0);
 		}
 
 	}
