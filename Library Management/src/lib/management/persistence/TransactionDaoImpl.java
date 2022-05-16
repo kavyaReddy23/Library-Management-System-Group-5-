@@ -34,9 +34,9 @@ public class TransactionDaoImpl implements TransactionDao {
 		Statement statement = null;
 		try {
 			statement = connection.createStatement();
-			String insertInTransaction = "insert into transaction (bookId,empId,issueDate,expectedReturnDate,actualReturnDate,isReturned) values("
+			String insertInTransaction = "insert into transaction (bookId,empId,issueDate,expectedReturnDate,actualReturnDate,isPaid,isReturned) values("
 					+ bookId + "," + empId + ", '" + issueDateSQL + "' , '"
-					+ expectedReturnDateSQL + "' ," + "null" + "," + "false)";
+					+ expectedReturnDateSQL + "' ," + "null" +","+"false"+ "," + "false)";
 			
 			
 		statement.executeUpdate(insertInTransaction);
@@ -47,7 +47,7 @@ public class TransactionDaoImpl implements TransactionDao {
 
 	}
 	@Override
-	public ArrayList<TransactionEntity> getIssuedBooksForEmployee(int empid){
+	public ArrayList<TransactionEntity> getTransactionDetailsForEmployee(int empid){
 		Statement statement = null;
 		ArrayList<TransactionEntity>transactionList=new ArrayList<TransactionEntity>();
 		try {
@@ -60,8 +60,9 @@ public class TransactionDaoImpl implements TransactionDao {
 				java.sql.Date issueDate=resultSet.getDate("issueDate");
 				java.sql.Date expectedReturnDate=resultSet.getDate("expectedReturnDate");
 				java.sql.Date actualReturnDate=resultSet.getDate("actualReturnDate");
+				boolean isPaid=resultSet.getBoolean("isPaid");
 				boolean isReturned=resultSet.getBoolean("isReturned");
-				TransactionEntity t=new TransactionEntity(transactionId,bookId,empId,issueDate,expectedReturnDate,actualReturnDate,isReturned);
+				TransactionEntity t=new TransactionEntity(transactionId,bookId,empId,issueDate,expectedReturnDate,actualReturnDate,isPaid,isReturned);
 				transactionList.add(t);
 			}
 		} catch (SQLException e) {
@@ -81,12 +82,28 @@ public class TransactionDaoImpl implements TransactionDao {
 		java.sql.Date actualReturnDateSQL=new java.sql.Date(actualReturnDate.getTime());
 		try {
 			statement = connection.createStatement();
-			String updatingTransactionTable = "update transaction set isReturned = True, actualReturnDate = '"+actualReturnDateSQL+"' where empId="+empid+" and bookId="+bookId;
+			String updatingTransactionTable = "update transaction set isReturned = true, actualReturnDate = '"+actualReturnDateSQL+"' where empId="+empid+" and bookId="+bookId;
 			statement.executeUpdate(updatingTransactionTable);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void updatePayment(int transactionId) {
+		
+		Statement statement=null;
+		try {
+			statement=connection.createStatement();
+			String updatePayment="update transaction set isPaid = true where transactionId = "+transactionId;
+			statement.executeUpdate(updatePayment);
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 
 }

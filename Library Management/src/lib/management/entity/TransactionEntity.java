@@ -14,6 +14,7 @@ public class TransactionEntity {
 	private java.sql.Date issueDate;
 	private java.sql.Date expectedReturnDate;
 	private java.sql.Date actualReturnDate;
+	private boolean paid;
 	private boolean isReturned;
 	
 }

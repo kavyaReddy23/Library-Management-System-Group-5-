@@ -9,6 +9,7 @@ public interface TransactionDao {
 	void issueBook(int empId, int bookId);
 	void returnBook(int empid,int bookId);
 
-	ArrayList<TransactionEntity> getIssuedBooksForEmployee(int empid);
+	ArrayList<TransactionEntity> getTransactionDetailsForEmployee(int empid);
+	void updatePayment(int transactionId);
 
 }

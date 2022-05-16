@@ -54,7 +54,7 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	@Override
 	public double paymentpending(int empId) {
-		ArrayList<TransactionEntity>transactions=transactionDao.getIssuedBooksForEmployee(empId);
+		ArrayList<TransactionEntity>transactions=transactionDao.getTransactionDetailsForEmployee(empId);
 		double payment=0;
 		Employee emp=employeeDao.getEmployeeDetails(empId);
 		if(transactions.size()==0)return 0;
@@ -65,7 +65,7 @@ public class LibraryServiceImpl implements LibraryService {
 			Date todayDate = new Date();
 			for(TransactionEntity each: transactions)
 			{
-				if(each.getExpectedReturnDate().before(todayDate)) {//todays date is greater than expected date
+				if(each.getExpectedReturnDate().before(todayDate)&&!(each.isPaid())) {//todays date is greater than expected date
 					long millis = Math.abs(todayDate.getTime() - each.getExpectedReturnDate().getTime());
 					long extraDays = TimeUnit.DAYS.convert(millis, TimeUnit.MILLISECONDS);
 					Book book=bookDao.getBookById(each.getBookId());
@@ -96,7 +96,7 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	public ArrayList<TransactionEntity>getTransactionsOfEmployee(int empId) {
-		return transactionDao.getIssuedBooksForEmployee(empId);
+		return transactionDao.getTransactionDetailsForEmployee(empId);
 	}
 	@Override
 	public ArrayList<Book> getBooksOfEmployee(int empId) {
@@ -114,7 +114,14 @@ public class LibraryServiceImpl implements LibraryService {
 		if(employeeDao.getEmployeeDetails(empId)==null) {
 			return false;
 		}else {
+			ArrayList<TransactionEntity>trans=getTransactionsOfEmployee(empId);
 			employeeDao.makePaymentZero(empId);
+			Date todayDate = new Date();
+			for(TransactionEntity t:trans)
+			{
+				if(t.getExpectedReturnDate().before(todayDate))
+					transactionDao.updatePayment(t.getTransactionId());
+			}
 			return true;
 		}
 	}
